@@ -8,13 +8,14 @@ interface TabelaProps {
 }
 
 export default function Tabela(props: TabelaProps) {
+  const exibirAcoes = props.clienteExcluido || props.clienteSelecionado;//função para aparecer ou não os butões
   function renderizarCabecalho() {
     return (
       <tr>
         <td className="text-left p-4">Código</td>
         <td className="text-left p-4">Nome</td>
         <td className="text-left p-4">Idade</td>
-        <td className=" p-4">Ações</td>
+        {exibirAcoes ? <td className=" p-4">Ações</td> : false}
       </tr>
     );
   }
@@ -29,24 +30,32 @@ export default function Tabela(props: TabelaProps) {
           <td className="text-left p-4">{cliente.id}</td>
           <td className="text-left p-4">{cliente.nome}</td>
           <td className="text-left p-4">{cliente.idade}</td>
-          {renderizarAcoes(cliente)}
+          {exibirAcoes ? renderizarAcoes(cliente) : false}
         </tr>
       );
     });
   }
   function renderizarAcoes(cliente: Cliente) {
     return (
-      <td>
-        <button
-          className={`flex justify-center  items-center text-green-600 rounded-full hover: bg-purple-50 p-2 m-1`}
-        >
-          {IconeEdicao}
-        </button>
-        <button
-          className={`flex justify-center  items-center text-red-500 rounded-full hover: bg-purple-50 p-2 m-1`}
-        >
-          {IconeLixo}
-        </button>
+      <td className="flex justify-center">
+        {props.clienteSelecionado ? (
+          <button onClick={() => props.clienteSelecionado?.(cliente)}
+            className={`flex justify-center  items-center text-green-600 rounded-full hover: bg-purple-50 p-2 m-1`}
+          >
+            {IconeEdicao}
+          </button>
+        ) : (
+          false
+        )}
+        {props.clienteExcluido ? (
+          <button onClick={() => props.clienteExcluido?.(cliente)}
+            className={`flex justify-center  items-center text-red-500 rounded-full hover: bg-purple-50 p-2 m-1`}
+          >
+            {IconeLixo}
+          </button>
+        ) : (
+          false
+        )}
       </td>
     );
   }
