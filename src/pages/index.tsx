@@ -20,6 +20,7 @@ export default function Home() {
 
   return (
     <div
+    style={{margin:"0", padding:"0",backgroundImage:"url('https://atomicpapers.com.br/web/wallpapers/choque-entre-planetas/1366x768.jpg') "}}
       className={`
       flex justify-center items-center h-screen
       bg-gradient-to-r from-violet-200 to-purple-500 text-white
